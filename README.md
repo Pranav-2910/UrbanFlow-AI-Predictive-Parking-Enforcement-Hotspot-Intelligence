@@ -6,6 +6,15 @@ This project was developed for the **Flipkart Gridlock 2.0 Hackathon (Round 2)**
 
 ---
 
+## 💼 Description
+
+
+* **Geospatial Engineering & Data Processing**: Engineered an interactive geospatial decision support system using Leaflet.js and HTML5/JS, processing and aggregating a historical dataset of **298,450 parking violations** to map chronic city-wide traffic bottlenecks.
+* **Predictive Modeling & Dispatch Optimization**: Integrated a temporal predictive forecasting engine achieving a validation Mean Absolute Error (**MAE) of 2.19 violations/hour** (representing a **4.15% error reduction** over baseline averages), implementing a strict 1-hour temporal dispatch lock to prevent premature resource deployments.
+* **Geospatial Heuristics & Dynamic ROI**: Designed a multi-stop patrol simulator utilizing a **Nearest Neighbor Traveling Salesperson Problem (TSP)** heuristic solver in JavaScript to route patrol vehicles sequentially from precinct centers. Developed a real-time **Social Impact & ROI Tracker** calculating commute delay hours saved ($N \times 0.15\text{ hrs}$), fuel avoided, and CO2 emissions prevented ($F \times 2.31\text{ kg}$) in real time.
+
+---
+
 ## 📖 Key Vocabulary & Concepts
 
 To understand the analytical models running under the hood of the dashboard, familiarize yourself with the following terms:
@@ -77,16 +86,28 @@ The prototype features a rich, glassmorphic dark-theme user interface designed t
    * Normalizes weights automatically: dragging one weight slider scales the other two proportionally so their sum is always $100\%$.
    * Recalculates composite scores and re-orders the junction priority lists in real time.
 
-4. **🚓 Live Patrol Dispatch Simulator**
-   * Clicking `⚡ Dispatch Nearest Patrol` on any Leaflet map popup initiates an active response.
-   * Computes the nearest Police Station from coordinate centers (`psCenters`) and draws a dashed routing path.
-   * Animates a patrol vehicle along the route at 60fps using coordinate interpolation (`requestAnimationFrame`).
-   * Displays a translucent telemetry HUD showing distance (km) and live ETA countdown (seconds).
-   * Triggers a clearance pulse upon arrival, reducing the hotspot count gradually and updating dashboard statistics dynamically.
+4. **📈 Bengaluru Municipal Impact & Enforcement ROI Tracker**
+   * A secondary row of 4 glowing KPI cards displays real-time operational benefits: **Commute Hours Saved**, **Fuel Saved (Liters)**, **CO2 Prevented (kg)**, and **Est. Fines Recovered (INR)**.
+   * Cleared violations dynamically increment these values, which persist across page reloads using browser `localStorage` storage.
+   * **Daily Auto-Reset Button (⏰)**: Toggle button enabling a check on load. If a new calendar day has started, the tracker automatically clears metrics to zero to track daily impact.
+   * **Manual Reset Button (🗑️)**: Button triggering immediate clearance of all accumulated ROI stats (requires confirmation prompt).
 
-5. **🔮 Predictive Incident & Patrol Forecasting**
+5. **🚓 Live Patrol Dispatch & TSP Multi-Stop Routing**
+   * Circle marker popups offer two choices: `⚡ Quick Dispatch (Single Spot)` or `📍 Queue for Patrol (Multi-Stop)`.
+   * A floating **Patrol Queue Deck** at the bottom-right lists currently targeted hotspots.
+   * Clicking `🚀 Start Optimized Patrol` runs a **Nearest Neighbor Traveling Salesperson Problem (TSP)** heuristic solver in JavaScript to find the shortest path from the nearest police station center.
+   * Animates the patrol vehicle traversing segments at 60fps, pausing at each node to pulse-clear violations, increment the ROI ticker, and trigger a floating map popup (e.g. `+ ₹15,000 Fine`) rising and fading out.
+
+6. **🔮 Predictive Incident & Patrol Forecasting**
    * Computes the Top 10 Police Jurisdictions predicted to have the highest violation density for any selected hour/day.
    * Click-to-load triggers update the **Patrol Pre-Position Alert** panel immediately with target jurisdiction recommendations.
+
+7. **🔒 1-Hour Dispatch Availability Lock**
+   * Enforces strict dispatch operational windows. The dispatch button is enabled on map popups if and only if the current system time is exactly 1 hour prior to the forecasted violation. Otherwise, a locked style (`🔒 Dispatch Locked`) is rendered, and clicking it displays an operational restriction warning.
+
+8. **📏 Height-Balanced Layout**
+   * Restricts the Map card and the Priority Rankings card to a matching height of $620\text{px}$.
+   * Rankings scroll internally to prevent vertical layout expansion, ensuring a clean, screen-fitted presentation layout.
 
 ---
 
@@ -103,6 +124,7 @@ The dashboard is structured as a standalone front-end web application that runs 
 
 ### Prerequisites
 * A modern web browser (Google Chrome, Microsoft Edge, or Mozilla Firefox).
+* Internet connection to load CDN resources (Leaflet, Chart.js, Google Fonts).
 
 ### Running Locally
 1. Clone the repository:
