@@ -63,8 +63,6 @@ $$\text{RawScore} = \text{Density}_{\text{norm}} \cdot \text{Narrowness} \cdot (
 * **$\text{Density}_{\text{norm}}$ (Normalized Density)**: Active violation count divided by the maximum historical city density ($2512$ violations):
   $$\text{Density}_{\text{norm}} = \frac{\text{Active Count}}{2512.0}$$
 * **$\text{Narrowness}$**: Multiplier assigned based on road classification ($1.5$ for local/narrow roads, $1.2$ for secondary roads, $1.0$ for primary/arterial roads).
-* **$\text{PeakOverlap}$**: The proportion of violations coinciding with commute rush hours:
-  $$\text{PeakOverlap} = \frac{\text{Count}_{\text{rush}}}{\text{Count}_{\text{total}}}$$
 * **$\text{POI}_{\text{score}}$**: Proximity score calculated based on the count of transit links and public hubs in a 300-meter radius (e.g., $+0.2$ per nearby Metro station).
 
 ---
